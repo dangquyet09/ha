@@ -6,25 +6,7 @@
 
 <title>Tạo Link Shopee - Săn Deal Ngon</title>
 
-<!-- 🔥 FAVICON -->
 <link rel="icon" type="image/png" href="/favicon.png">
-
-<!-- SEO -->
-<meta name="description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
-
-<!-- Open Graph (Facebook, Zalo, Messenger) -->
-<meta property="og:title" content="🔥 Công cụ tạo link Shopee - Săn Deal Ngon Mỗi Ngày">
-<meta property="og:description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
-<meta property="og:url" content="https://www.nghiensale.store/">
-<meta property="og:type" content="website">
-
-<!-- (Ảnh thêm sau cũng được, chưa có cũng OK) -->
-<meta property="og:image" content="https://www.nghiensale.store/preview.jpg">
-
-<!-- Twitter (phòng trường hợp share nơi khác) -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="🔥 Công cụ tạo link Shopee - Săn Deal Ngon Mỗi Ngày">
-<meta name="twitter:description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
 
 <style>
 body {
@@ -42,7 +24,7 @@ body {
     color: #ff4d2d;
 }
 
-/* CARD MAIN */
+/* CONTAINER */
 .container {
     max-width: 520px;
     margin: 20px auto;
@@ -54,10 +36,6 @@ body {
 }
 
 /* INPUT */
-.input-box {
-    width: 100%;
-}
-
 .input-box input {
     width: 100%;
     padding: 14px;
@@ -65,12 +43,10 @@ body {
     border: none;
     font-size: 14px;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
-    box-sizing: border-box; /* 🔥 QUAN TRỌNG */
 }
 
 /* BUTTON */
 .btn-main {
-    display: block; /* 🔥 QUAN TRỌNG */
     width: 100%;
     margin-top: 15px;
     padding: 16px;
@@ -81,22 +57,44 @@ body {
     font-size: 17px;
     font-weight: 600;
     cursor: pointer;
-    text-align: center;
-
     box-shadow: 0 6px 15px rgba(255,77,45,0.4);
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
 .btn-main:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(255,77,45,0.5);
 }
 
 .btn-main:active {
     transform: scale(0.97);
 }
 
-/* RESULT CARD */
+/* LOADING */
+.btn-loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.btn-loading::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 3px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* CARD */
 .card {
     background: white;
     border-radius: 14px;
@@ -114,7 +112,6 @@ body {
     font-size: 12px;
     word-break: break-all;
     margin: 10px 0;
-    color: #555;
 }
 
 .copy-btn {
@@ -143,43 +140,63 @@ body {
     cursor: pointer;
 }
 
-.buy {
-    background: linear-gradient(90deg,#28c76f,#48da89);
+.buy { background: #28c76f; }
+.share { background: #3b5998; }
+
+/* ✨ LIGHT EFFECT */
+.btn-main,
+.actions button,
+.copy-btn {
+    position: relative;
+    overflow: hidden;
 }
 
-.share {
-    background: linear-gradient(90deg,#3b5998,#4a6fd6);
+.btn-main::before,
+.actions button::before,
+.copy-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.6) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-20deg);
 }
 
-/* GUIDE */
-.guide {
-    background: #f1f5f9;
-    padding: 15px;
+.btn-main:hover::before,
+.actions button:hover::before,
+.copy-btn:hover::before {
+    animation: shine 0.8s;
+}
+
+@keyframes shine {
+    100% { left: 125%; }
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
     border-radius: 12px;
-    margin-top: 20px;
-    font-size: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(120%);
+    transition: 0.4s;
 }
 
-/* BANNER */
-.banner img {
-    width: 100%;
-    border-radius: 14px;
-    margin-top: 15px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.banner img:hover {
-    transform: scale(1.02);
-}
-
-/* NOTE */
-.note {
-    background: #fff3cd;
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 15px;
-    font-size: 14px;
+.toast.show {
+    transform: translateX(0);
 }
 </style>
 </head>
@@ -190,9 +207,7 @@ body {
 
 <div class="container">
 
-    <div class="input-box">
-        <input type="text" id="linkInput" placeholder="Dán link Shopee vào đây...">
-    </div>
+    <input type="text" id="linkInput" placeholder="Dán link Shopee...">
 
     <button class="btn-main" onclick="taoLink()">Tạo Link Ngay</button>
 
@@ -203,30 +218,11 @@ body {
         <button class="share" onclick="copyMain()">📘 Chia sẻ</button>
     </div>
 
-    <div class="guide">
-        <b>ℹ️ Hướng dẫn</b><br><br>
-        1. Dán link sản phẩm cần mua vào ô.<br>
-        2. Chọn "Tạo link ngay"→chọn "Copy"→chọn "Chia sẻ".<br>
-        3. Bình luận link đã copy vào bài đăng trên Facebook.<br>
-        4. Click mở theo link mà bạn đã bình luận.<br><br>
+</div>
 
-        <button onclick="openFB()" style="padding:10px;border-radius:8px;border:none;background:#3b82f6;color:white;">
-            Đến bài đăng Facebook
-        </button>
-    </div>
-
-    <div class="banner">
-        <img src="fb.jpg" onclick="openMain()">
-    </div>
-
-    <div class="note">
-        <b>⚠️ Lưu ý quan trọng:</b><br><br>
-        - Lấy tối đa 5 mã/1 acc/1 ngày. Sau 1 ngày được lấy thêm tiếp<br>
-        - Cập nhật app Shopee & Facebook bản mới nhất (không dùng Facebook Lite)<br>
-        - Làm theo hướng dẫn mà không có mã = sản phẩm đó không áp được mã<br>
-        - Có thể thử bằng cách ẩn/mở link sản phẩm của người khác<br>
-    </div>
-
+<!-- TOAST -->
+<div id="toast" class="toast">
+    ✔ <span id="toastText">Thông báo</span>
 </div>
 
 <script>
@@ -239,55 +235,77 @@ function buildAff(link, sub) {
 }
 
 function taoLink() {
+    let btn = document.querySelector(".btn-main");
     let link = document.getElementById("linkInput").value.trim();
 
     if (!link.includes("shopee.vn")) {
-        alert("Link không hợp lệ!");
+        showToast("Link không hợp lệ!");
         return;
     }
 
-    let aff1 = buildAff(link, "dealhot_22");
-    let aff2 = buildAff(link, "dealhot_20");
+    btn.classList.add("btn-loading");
+    btn.innerText = "Đang xử lý...";
 
-    mainLink = aff1;
+    setTimeout(() => {
 
-    document.getElementById("resultBox").innerHTML = `
-        <div class="card">
-            <div class="card-title">✔ Mã 22% tối đa 300K</div>
-            <div class="link">${aff1}</div>
-            <button class="copy-btn" onclick="copy('${aff1}')">Copy</button>
-        </div>
+        let aff1 = buildAff(link, "dealhot_22");
+        let aff2 = buildAff(link, "dealhot_20");
 
-        <div class="card">
-            <div class="card-title">✔ Mã 20% tối đa 250K</div>
-            <div class="link">${aff2}</div>
-            <button class="copy-btn" onclick="copy('${aff2}')">Copy</button>
-        </div>
-    `;
+        mainLink = aff1;
+
+        document.getElementById("resultBox").innerHTML = `
+            <div class="card">
+                <div class="card-title">✔ Mã 22%</div>
+                <div class="link">${aff1}</div>
+                <button class="copy-btn" onclick="copy('${aff1}')">Copy</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">✔ Mã 20%</div>
+                <div class="link">${aff2}</div>
+                <button class="copy-btn" onclick="copy('${aff2}')">Copy</button>
+            </div>
+        `;
+
+        btn.classList.remove("btn-loading");
+        btn.innerText = "Tạo Link Ngay";
+
+        showToast("Tạo 2 link thành công!");
+
+    }, 1000);
 }
 
 function copy(text) {
     navigator.clipboard.writeText(text);
-    alert("Đã copy!");
-}
-
-function openMain() {
-    if (!mainLink) {
-        alert("Hãy tạo link trước!");
-        return;
-    }
-    window.open(mainLink, "_blank");
+    showToast("Đã copy link!");
 }
 
 function copyMain() {
     if (mainLink) {
         navigator.clipboard.writeText(mainLink);
-        alert("Đã copy!");
+        showToast("Đã copy link chính!");
     }
 }
 
-function openFB() {
-    window.open("https://www.facebook.com/", "_blank");
+function openMain() {
+    if (!mainLink) {
+        showToast("Hãy tạo link trước!");
+        return;
+    }
+    window.open(mainLink, "_blank");
+}
+
+function showToast(message) {
+    let toast = document.getElementById("toast");
+    let text = document.getElementById("toastText");
+
+    text.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
 }
 </script>
 
