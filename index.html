@@ -8,14 +8,26 @@
 
 <link rel="icon" type="image/png" href="/favicon.png">
 
+<meta name="description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
+
+<meta property="og:title" content="🔥 Công cụ tạo link Shopee - Săn Deal Ngon Mỗi Ngày">
+<meta property="og:description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
+<meta property="og:url" content="https://www.nghiensale.store/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.nghiensale.store/preview.jpg">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🔥 Công cụ tạo link Shopee - Săn Deal Ngon Mỗi Ngày">
+<meta name="twitter:description" content="Tổng hợp deal hot, mã giảm giá Shopee mới nhất. Click để săn ngay!">
+
 <style>
+/* ====== GIỮ NGUYÊN TOÀN BỘ CSS CỦA BẠN ====== */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #fda085, #f6d365);
 }
 
-/* HEADER */
 .header {
     text-align: center;
     padding: 30px 10px 10px;
@@ -24,7 +36,6 @@ body {
     color: #ff4d2d;
 }
 
-/* CARD MAIN */
 .container {
     max-width: 520px;
     margin: 20px auto;
@@ -35,7 +46,6 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* INPUT */
 .input-box {
     width: 100%;
 }
@@ -50,7 +60,6 @@ body {
     box-sizing: border-box;
 }
 
-/* BUTTON */
 .btn-main {
     display: block;
     width: 100%;
@@ -77,7 +86,6 @@ body {
     transform: scale(0.97);
 }
 
-/* RESULT CARD */
 .card {
     background: white;
     border-radius: 14px;
@@ -107,7 +115,6 @@ body {
     cursor: pointer;
 }
 
-/* ACTION */
 .actions {
     display: flex;
     gap: 10px;
@@ -132,9 +139,37 @@ body {
     background: linear-gradient(90deg,#3b5998,#4a6fd6);
 }
 
-/* ================== ADD NEW ================== */
+.guide {
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-size: 14px;
+}
 
-/* LOADING */
+.banner img {
+    width: 100%;
+    border-radius: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.banner img:hover {
+    transform: scale(1.02);
+}
+
+.note {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* ====== THÊM MỚI ====== */
+
+/* loading */
 .btn-loading {
     opacity: 0.7;
     pointer-events: none;
@@ -159,7 +194,7 @@ body {
     to { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* TOAST */
+/* toast */
 .toast {
     position: fixed;
     top: 20px;
@@ -168,9 +203,6 @@ body {
     padding: 15px 20px;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    gap: 10px;
     transform: translateX(120%);
     transition: 0.4s;
     z-index: 999;
@@ -180,7 +212,7 @@ body {
     transform: translateX(0);
 }
 
-/* LIGHT EFFECT */
+/* ánh sáng */
 .btn-main,
 .actions button,
 .copy-btn {
@@ -238,12 +270,34 @@ body {
         <button class="share" onclick="copyMain()">📘 Chia sẻ</button>
     </div>
 
+    <div class="guide">
+        <b>ℹ️ Hướng dẫn</b><br><br>
+        1. Dán link sản phẩm cần mua vào ô.<br>
+        2. Chọn "Tạo link ngay"→chọn "Copy"→chọn "Chia sẻ".<br>
+        3. Bình luận link đã copy vào bài đăng trên Facebook.<br>
+        4. Click mở theo link mà bạn đã bình luận.<br><br>
+
+        <button onclick="openFB()" style="padding:10px;border-radius:8px;border:none;background:#3b82f6;color:white;">
+            Đến bài đăng Facebook
+        </button>
+    </div>
+
+    <div class="banner">
+        <img src="fb.jpg" onclick="openMain()">
+    </div>
+
+    <div class="note">
+        <b>⚠️ Lưu ý quan trọng:</b><br><br>
+        - Lấy tối đa 5 mã/1 acc/1 ngày. Sau 1 ngày được lấy thêm tiếp<br>
+        - Cập nhật app Shopee & Facebook bản mới nhất (không dùng Facebook Lite)<br>
+        - Làm theo hướng dẫn mà không có mã = sản phẩm đó không áp được mã<br>
+        - Có thể thử bằng cách ẩn/mở link sản phẩm của người khác<br>
+    </div>
+
 </div>
 
 <!-- TOAST -->
-<div id="toast" class="toast">
-    ✔ <span id="toastText">Thông báo</span>
-</div>
+<div id="toast" class="toast">✔ <span id="toastText"></span></div>
 
 <script>
 let mainLink = "";
@@ -315,12 +369,15 @@ function openMain() {
     window.open(mainLink, "_blank");
 }
 
+function openFB() {
+    window.open("https://www.facebook.com/", "_blank");
+}
+
 function showToast(message) {
     let toast = document.getElementById("toast");
     let text = document.getElementById("toastText");
 
     text.innerText = message;
-
     toast.classList.add("show");
 
     setTimeout(() => {
