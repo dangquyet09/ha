@@ -28,7 +28,6 @@ body {
     border-radius: 16px;
 }
 
-/* INPUT */
 .input-box input {
     width: 100%;
     padding: 12px;
@@ -36,7 +35,6 @@ body {
     border: none;
 }
 
-/* BUTTON */
 .btn-main {
     width: 100%;
     margin-top: 15px;
@@ -49,7 +47,6 @@ body {
     cursor: pointer;
 }
 
-/* RESULT */
 .card {
     background: #fff;
     border-radius: 12px;
@@ -61,13 +58,12 @@ body {
 .card-title {
     color: green;
     font-weight: bold;
-    margin-bottom: 8px;
 }
 
 .link {
     font-size: 12px;
     word-break: break-all;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .copy-btn {
@@ -79,7 +75,6 @@ body {
     cursor: pointer;
 }
 
-/* ACTION */
 .actions {
     display: flex;
     gap: 10px;
@@ -98,57 +93,11 @@ body {
 .buy { background: #28c76f; }
 .share { background: #3b5998; }
 
-/* GUIDE */
 .guide {
     background: #ddd;
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
-}
-
-/* FB CARD */
-.fb-card {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 12px;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.fb-left {
-    width: 60px;
-    height: 60px;
-    background: #ff4d2d;
-    color: white;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    margin-right: 10px;
-}
-
-.fb-content {
-    flex: 1;
-    font-size: 13px;
-}
-
-.tag {
-    background: #ffdede;
-    color: #ff4d2d;
-    padding: 2px 6px;
-    border-radius: 5px;
-    font-size: 11px;
-}
-
-.fb-btn {
-    background: #fff;
-    border: 1px solid #ff4d2d;
-    color: #ff4d2d;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
 }
 </style>
 </head>
@@ -185,27 +134,11 @@ body {
         </button>
     </div>
 
-    <!-- FACEBOOK CARDS -->
-    <div class="fb-card">
-        <div class="fb-left">f</div>
-        <div class="fb-content">
-            <b>giảm 22% Giảm tối đa 300kđ</b><br>
-            <small>Đơn tối thiểu 50kđ</small><br>
-            <span class="tag">Độc Quyền Facebook</span><br>
-            <small>hết hạn trong: Còn 1 ngày</small>
-        </div>
-        <button class="fb-btn" onclick="openMain()">Dùng ngay</button>
-    </div>
-
-    <div class="fb-card">
-        <div class="fb-left">f</div>
-        <div class="fb-content">
-            <b>giảm 20% Giảm tối đa 1trđ</b><br>
-            <small>Đơn tối thiểu 1trđ</small><br>
-            <span class="tag">Độc Quyền Facebook</span><br>
-            <small>hết hạn trong: Còn 1 ngày</small>
-        </div>
-        <button class="fb-btn" onclick="openMain()">Dùng ngay</button>
+    <!-- ẢNH BANNER LUÔN HIỂN THỊ -->
+    <div style="margin-top:15px;">
+        <img src="fb.jpg"
+             style="width:100%; border-radius:12px; cursor:pointer;"
+             onclick="openMain()">
     </div>
 
     <!-- LƯU Ý -->
@@ -262,7 +195,11 @@ function copy(text) {
 }
 
 function openMain() {
-    if (mainLink) window.open(mainLink, "_blank");
+    if (!mainLink) {
+        alert("Hãy tạo link trước!");
+        return;
+    }
+    window.open(mainLink, "_blank");
 }
 
 function copyMain() {
