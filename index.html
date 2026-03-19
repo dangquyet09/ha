@@ -8,38 +8,31 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: #e9a88f;
 }
 
 .header {
     text-align: center;
-    padding: 30px 10px 10px;
-    color: #ff4d2d;
-    font-size: 26px;
+    padding: 30px;
+    font-size: 24px;
     font-weight: bold;
+    color: #ff4d2d;
 }
 
 .container {
-    max-width: 500px;
-    margin: 20px auto;
+    max-width: 520px;
+    margin: auto;
     background: #eee;
-    border-radius: 16px;
     padding: 20px;
-}
-
-.input-box {
-    display: flex;
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 16px;
 }
 
 .input-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
     border: none;
-    flex: 1;
-    font-size: 14px;
-    outline: none;
 }
 
 .btn-main {
@@ -55,14 +48,24 @@ body {
 }
 
 .result {
+    margin-top: 15px;
+}
+
+.card {
     background: #fff;
     border-radius: 12px;
     padding: 15px;
-    margin-top: 15px;
     border: 2px solid #ff4d2d;
+    margin-bottom: 10px;
 }
 
-.link-box {
+.card-title {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.link {
     font-size: 12px;
     word-break: break-all;
     margin-bottom: 10px;
@@ -116,17 +119,11 @@ body {
 
     <button class="btn-main" onclick="taoLink()">Tạo Link Ngay</button>
 
-    <div class="result" id="resultBox" style="display:none;">
-        <b style="color:green;">✔ Link đã tạo</b>
-
-        <div class="link-box" id="output"></div>
-
-        <button class="copy-btn" onclick="copyLink()">Copy</button>
-    </div>
+    <div class="result" id="resultBox"></div>
 
     <div class="actions">
-        <button class="buy" onclick="openLink()">Mua Ngay</button>
-        <button class="share" onclick="copyLink()">Chia sẻ</button>
+        <button class="buy" onclick="openMain()">Mua Ngay</button>
+        <button class="share" onclick="copyMain()">Chia sẻ</button>
     </div>
 
     <div class="guide">
@@ -139,36 +136,60 @@ body {
 </div>
 
 <script>
-let currentLink = "";
+
+let mainLink = "";
+
+function buildAff(link, sub) {
+    return "https://s.shopee.vn/an_redir?origin_link="
+        + encodeURIComponent(link)
+        + "&share_channel_code=4&affiliate_id=17310760448&sub_id=" + sub;
+}
 
 function taoLink() {
     let link = document.getElementById("linkInput").value.trim();
 
     if (!link.includes("shopee.vn")) {
-        alert("Vui lòng nhập link Shopee hợp lệ!");
+        alert("Link không hợp lệ!");
         return;
     }
 
-    let aff = "https://s.shopee.vn/an_redir?origin_link="
-        + encodeURIComponent(link)
-        + "&share_channel_code=4&affiliate_id=17310760448&sub_id=dealhot";
+    // 2 mã giả lập (sau có thể random / API thật)
+    let aff1 = buildAff(link, "dealhot_22");
+    let aff2 = buildAff(link, "dealhot_20");
 
-    currentLink = aff;
+    mainLink = aff1;
 
-    document.getElementById("output").innerText = aff;
-    document.getElementById("resultBox").style.display = "block";
+    document.getElementById("resultBox").innerHTML = `
+        <div class="card">
+            <div class="card-title">✔ Mã 22% tối đa 300K/50K</div>
+            <div class="link">${aff1}</div>
+            <button class="copy-btn" onclick="copy('${aff1}')">Copy</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">✔ Mã 20% tối đa 250K/50K</div>
+            <div class="link">${aff2}</div>
+            <button class="copy-btn" onclick="copy('${aff2}')">Copy</button>
+        </div>
+    `;
 }
 
-function copyLink() {
-    if (!currentLink) return;
-    navigator.clipboard.writeText(currentLink);
-    alert("Đã copy link!");
+function copy(text) {
+    navigator.clipboard.writeText(text);
+    alert("Đã copy!");
 }
 
-function openLink() {
-    if (!currentLink) return;
-    window.open(currentLink, "_blank");
+function openMain() {
+    if (mainLink) window.open(mainLink, "_blank");
 }
+
+function copyMain() {
+    if (mainLink) {
+        navigator.clipboard.writeText(mainLink);
+        alert("Đã copy link chính!");
+    }
+}
+
 </script>
 
 </body>
