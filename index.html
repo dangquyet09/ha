@@ -12,7 +12,6 @@ body {
     background: #e9a88f;
 }
 
-/* HEADER */
 .header {
     text-align: center;
     padding: 30px 10px 10px;
@@ -21,7 +20,6 @@ body {
     font-weight: bold;
 }
 
-/* CARD */
 .container {
     max-width: 500px;
     margin: 20px auto;
@@ -30,13 +28,11 @@ body {
     padding: 20px;
 }
 
-/* INPUT */
 .input-box {
     display: flex;
     background: white;
     border-radius: 10px;
     padding: 10px;
-    align-items: center;
 }
 
 .input-box input {
@@ -46,7 +42,6 @@ body {
     outline: none;
 }
 
-/* BUTTON */
 .btn-main {
     width: 100%;
     margin-top: 15px;
@@ -59,18 +54,12 @@ body {
     cursor: pointer;
 }
 
-/* RESULT CARD */
 .result {
     background: #fff;
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
     border: 2px solid #ff4d2d;
-}
-
-.result h4 {
-    margin: 0 0 10px;
-    color: green;
 }
 
 .link-box {
@@ -88,7 +77,6 @@ body {
     cursor: pointer;
 }
 
-/* ACTION BUTTON */
 .actions {
     display: flex;
     gap: 10px;
@@ -107,16 +95,13 @@ body {
 .buy { background: #28c76f; }
 .share { background: #3b5998; }
 
-/* GUIDE */
 .guide {
     background: #ddd;
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
-    font-size: 14px;
 }
 </style>
-
 </head>
 
 <body>
@@ -125,53 +110,64 @@ body {
 
 <div class="container">
 
-    <!-- INPUT -->
     <div class="input-box">
         <input type="text" id="linkInput" placeholder="Dán link Shopee vào đây...">
     </div>
 
     <button class="btn-main" onclick="taoLink()">Tạo Link Ngay</button>
 
-    <!-- RESULT -->
     <div class="result" id="resultBox" style="display:none;">
-        <h4>✔ Link đã tạo</h4>
+        <b style="color:green;">✔ Link đã tạo</b>
 
         <div class="link-box" id="output"></div>
 
         <button class="copy-btn" onclick="copyLink()">Copy</button>
     </div>
 
-    <!-- ACTION -->
     <div class="actions">
-        <button class="buy">Mua Ngay</button>
-        <button class="share">Chia sẻ</button>
+        <button class="buy" onclick="openLink()">Mua Ngay</button>
+        <button class="share" onclick="copyLink()">Chia sẻ</button>
     </div>
 
-    <!-- GUIDE -->
     <div class="guide">
         <b>Hướng dẫn:</b><br><br>
         1. Dán link Shopee<br>
         2. Bấm "Tạo Link"<br>
-        3. Copy và đăng Facebook<br>
+        3. Copy và đăng Facebook
     </div>
 
 </div>
 
 <script>
-function taoLink() {
-    let link = document.getElementById("linkInput").value;
+let currentLink = "";
 
-    // Demo fake affiliate (sau bạn thay bằng API thật)
-    let aff = "https://s.shopee.vn/redirect?url=" + encodeURIComponent(link);
+function taoLink() {
+    let link = document.getElementById("linkInput").value.trim();
+
+    if (!link.includes("shopee.vn")) {
+        alert("Vui lòng nhập link Shopee hợp lệ!");
+        return;
+    }
+
+    let aff = "https://s.shopee.vn/an_redir?origin_link="
+        + encodeURIComponent(link)
+        + "&share_channel_code=4&affiliate_id=17310760448&sub_id=dealhot";
+
+    currentLink = aff;
 
     document.getElementById("output").innerText = aff;
     document.getElementById("resultBox").style.display = "block";
 }
 
 function copyLink() {
-    let text = document.getElementById("output").innerText;
-    navigator.clipboard.writeText(text);
-    alert("Đã copy!");
+    if (!currentLink) return;
+    navigator.clipboard.writeText(currentLink);
+    alert("Đã copy link!");
+}
+
+function openLink() {
+    if (!currentLink) return;
+    window.open(currentLink, "_blank");
 }
 </script>
 
