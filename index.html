@@ -14,7 +14,7 @@ body {
 
 .header {
     text-align: center;
-    padding: 30px;
+    padding: 25px;
     font-size: 24px;
     font-weight: bold;
     color: #ff4d2d;
@@ -28,6 +28,7 @@ body {
     border-radius: 16px;
 }
 
+/* INPUT */
 .input-box input {
     width: 100%;
     padding: 12px;
@@ -35,6 +36,7 @@ body {
     border: none;
 }
 
+/* BUTTON */
 .btn-main {
     width: 100%;
     margin-top: 15px;
@@ -47,16 +49,13 @@ body {
     cursor: pointer;
 }
 
-.result {
-    margin-top: 15px;
-}
-
+/* RESULT */
 .card {
     background: #fff;
     border-radius: 12px;
     padding: 15px;
     border: 2px solid #ff4d2d;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .card-title {
@@ -80,6 +79,7 @@ body {
     cursor: pointer;
 }
 
+/* ACTION */
 .actions {
     display: flex;
     gap: 10px;
@@ -98,11 +98,57 @@ body {
 .buy { background: #28c76f; }
 .share { background: #3b5998; }
 
+/* GUIDE */
 .guide {
     background: #ddd;
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
+}
+
+/* FB CARD */
+.fb-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.fb-left {
+    width: 60px;
+    height: 60px;
+    background: #ff4d2d;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.fb-content {
+    flex: 1;
+    font-size: 13px;
+}
+
+.tag {
+    background: #ffdede;
+    color: #ff4d2d;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 11px;
+}
+
+.fb-btn {
+    background: #fff;
+    border: 1px solid #ff4d2d;
+    color: #ff4d2d;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -119,24 +165,61 @@ body {
 
     <button class="btn-main" onclick="taoLink()">Tạo Link Ngay</button>
 
-    <div class="result" id="resultBox"></div>
+    <div id="resultBox"></div>
 
     <div class="actions">
         <button class="buy" onclick="openMain()">Mua Ngay</button>
         <button class="share" onclick="copyMain()">Chia sẻ</button>
     </div>
 
+    <!-- HƯỚNG DẪN -->
     <div class="guide">
-        <b>Hướng dẫn:</b><br><br>
-        1. Dán link Shopee<br>
-        2. Bấm "Tạo Link"<br>
-        3. Copy và đăng Facebook
+        <b>ℹ️ Hướng dẫn</b><br><br>
+        1: Dán link sản phẩm cần mua vào ô.<br>
+        2: Chọn "Tạo link ngay" → chọn "Copy" → chọn "Chia sẻ".<br>
+        3: Bình luận link đã copy vào bài đăng trên Facebook.<br>
+        4: Click mở theo link mà bạn đã bình luận.<br><br>
+
+        <button onclick="openFB()" style="padding:10px;border-radius:8px;border:1px solid #007bff;color:#007bff;background:#fff;">
+            Đến bài đăng Facebook
+        </button>
+    </div>
+
+    <!-- FACEBOOK CARDS -->
+    <div class="fb-card">
+        <div class="fb-left">f</div>
+        <div class="fb-content">
+            <b>giảm 22% Giảm tối đa 300kđ</b><br>
+            <small>Đơn tối thiểu 50kđ</small><br>
+            <span class="tag">Độc Quyền Facebook</span><br>
+            <small>hết hạn trong: Còn 1 ngày</small>
+        </div>
+        <button class="fb-btn" onclick="openMain()">Dùng ngay</button>
+    </div>
+
+    <div class="fb-card">
+        <div class="fb-left">f</div>
+        <div class="fb-content">
+            <b>giảm 20% Giảm tối đa 1trđ</b><br>
+            <small>Đơn tối thiểu 1trđ</small><br>
+            <span class="tag">Độc Quyền Facebook</span><br>
+            <small>hết hạn trong: Còn 1 ngày</small>
+        </div>
+        <button class="fb-btn" onclick="openMain()">Dùng ngay</button>
+    </div>
+
+    <!-- LƯU Ý -->
+    <div class="guide">
+        <b>⚠️ LƯU Ý QUAN TRỌNG:</b><br><br>
+        - Lấy tối đa 5 mã / 1 acc / 1 ngày.<br>
+        - Cập nhật app Shopee & Facebook bản mới nhất.<br>
+        - Làm theo hướng dẫn mà không có mã = sản phẩm không áp dụng.<br>
+        - Có thể thử bằng cách ẩn/mở link sản phẩm.
     </div>
 
 </div>
 
 <script>
-
 let mainLink = "";
 
 function buildAff(link, sub) {
@@ -153,7 +236,6 @@ function taoLink() {
         return;
     }
 
-    // 2 mã giả lập (sau có thể random / API thật)
     let aff1 = buildAff(link, "dealhot_22");
     let aff2 = buildAff(link, "dealhot_20");
 
@@ -186,10 +268,13 @@ function openMain() {
 function copyMain() {
     if (mainLink) {
         navigator.clipboard.writeText(mainLink);
-        alert("Đã copy link chính!");
+        alert("Đã copy link!");
     }
 }
 
+function openFB() {
+    window.open("https://facebook.com", "_blank");
+}
 </script>
 
 </body>
