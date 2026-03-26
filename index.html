@@ -254,27 +254,21 @@ function taoLink() {
         let aff1 = buildAff(link, "dealhot_22");
         let aff2 = buildAff(link, "dealhot_20");
 
-        Promise.all([
-            getShortLinkShopee(aff1),
-            getShortLinkShopee(aff2)
-        ]).then(([short1, short2]) => {
+        mainLink = aff1;
 
-            mainLink = short1;
+        document.getElementById("resultBox").innerHTML = `
+            <div class="card">
+                <div class="card-title">✔ Mã 22% tối đa 300K</div>
+                <div class="link">${aff1}</div>
+                <button class="copy-btn" onclick="copy('${aff1}')">Copy</button>
+            </div>
 
-            document.getElementById("resultBox").innerHTML = `
-                <div class="card">
-                    <div class="card-title">✔ Mã 22% tối đa 300K</div>
-                    <div class="link">${short1}</div>
-                    <button class="copy-btn" onclick="copy('${short1}')">Copy</button>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">✔ Mã 20% tối đa 250K</div>
-                    <div class="link">${short2}</div>
-                    <button class="copy-btn" onclick="copy('${short2}')">Copy</button>
-                </div>
-            `;
-        });
+            <div class="card">
+                <div class="card-title">✔ Mã 20% tối đa 250K</div>
+                <div class="link">${aff2}</div>
+                <button class="copy-btn" onclick="copy('${aff2}')">Copy</button>
+            </div>
+        `;
 
         btn.classList.remove("btn-loading");
         btn.innerText = "Tạo Link Ngay";
@@ -319,26 +313,6 @@ function showToast(message) {
         toast.classList.remove("show");
     }, 2500);
 }
-
-async function getShortLinkShopee(longUrl) {
-    try {
-        const res = await fetch(longUrl, {
-            method: "GET",
-            redirect: "follow",
-            headers: {
-                "user-agent": "Shopee/3.00.00 (iPhone; iOS 16.0)",
-                "accept": "text/html,application/xhtml+xml",
-                "accept-language": "vi-VN,vi;q=0.9",
-                "x-api-source": "rn",
-                "referer": "https://shopee.vn/"
-            }
-        });
-        return res.url;
-    } catch (e) {
-        return longUrl;
-    }
-}
-
 </script>
 
 </body>
